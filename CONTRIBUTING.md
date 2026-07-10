@@ -1,6 +1,6 @@
-# Contributing to Movi-Player
+# Contributing to MovSync
 
-Thank you for your interest in contributing to Movi-Player! This document provides guidelines and instructions for contributing to the project.
+Thank you for your interest in contributing to MovSync! This document provides guidelines and instructions for contributing to the project.
 
 ## Table of Contents
 
@@ -41,13 +41,13 @@ Before you begin, ensure you have the following installed:
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/movi-player.git
-   cd movi-player
+   git clone https://github.com/YOUR_USERNAME/movsync-fork-movi.git
+   cd movsync-fork-movi
    ```
 
 3. **Add upstream remote**:
    ```bash
-   git remote add upstream https://github.com/mrujjwalg/movi-player.git
+   git remote add upstream https://github.com/nityamkaushik/movsync-fork-movi.git
    ```
 
 4. **Install dependencies**:
@@ -97,7 +97,7 @@ The server runs at `http://localhost:5173` with special headers for SharedArrayB
 ## Project Structure
 
 ```
-movi-player/
+movsync-fork-movi/
 ├── src/                   # TypeScript source code
 │   ├── core/             # Core playback engine (MoviPlayer, PlaybackController)
 │   ├── demux/            # Demuxing & container parsing
@@ -128,7 +128,7 @@ movi-player/
 
 ### Module Organization
 
-Movi-Player has a modular architecture with three entry points:
+MovSync has a modular architecture with three entry points:
 
 1. **Demuxer** (`demuxer.ts`) - ~45KB - Container parsing and metadata
 2. **Player** (`player.ts`) - ~180KB - Playback control
@@ -307,7 +307,7 @@ When adding features or changing APIs:
 npm run docs:dev
 ```
 
-Visit `http://localhost:5173/movi-player/` to preview.
+Visit `http://localhost:5173/movsync-fork-movi/` to preview.
 
 ### Building Documentation
 
@@ -372,7 +372,7 @@ Ensure your changes:
 
 ### Memory Usage
 
-Movi-Player handles large video files (multi-GB) with careful memory management:
+MovSync handles large video files (multi-GB) with careful memory management:
 
 - **Typical usage**: 200-400MB
 - **Peak (4K HEVC)**: ~1.5GB
@@ -409,16 +409,15 @@ The library has three entry points with specific size targets:
 
 ### Resources
 
-- **Documentation**: [mrujjwalg.github.io/movi-player](https://mrujjwalg.github.io/movi-player/)
-- **Live Examples**: [movi-player-examples](https://github.com/MrUjjwalG/movi-player-examples)
-- **Issues**: [GitHub Issues](https://github.com/mrujjwalg/movi-player/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/mrujjwalg/movi-player/discussions)
+- **Documentation**: [nityamkaushik.github.io/movsync-fork-movi](https://nityamkaushik.github.io/movsync-fork-movi/)
+- **Issues**: [GitHub Issues](https://github.com/nityamkaushik/movsync-fork-movi/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/nityamkaushik/movsync-fork-movi/discussions)
 
 ### Questions
 
-- **General questions**: Use [GitHub Discussions](https://github.com/mrujjwalg/movi-player/discussions)
-- **Bug reports**: Use [GitHub Issues](https://github.com/mrujjwalg/movi-player/issues)
-- **Feature requests**: Use [GitHub Issues](https://github.com/mrujjwalg/movi-player/issues)
+- **General questions**: Use [GitHub Discussions](https://github.com/nityamkaushik/movsync-fork-movi/discussions)
+- **Bug reports**: Use [GitHub Issues](https://github.com/nityamkaushik/movsync-fork-movi/issues)
+- **Feature requests**: Use [GitHub Issues](https://github.com/nityamkaushik/movsync-fork-movi/issues)
 
 ### Common Issues
 
@@ -441,6 +440,6 @@ The library has three entry points with specific size targets:
 
 ## Thank You!
 
-Your contributions make Movi-Player better for everyone. We appreciate your time and effort!
+Your contributions make MovSync better for everyone. We appreciate your time and effort!
 
 If you have questions about contributing, please open a discussion or issue on GitHub.

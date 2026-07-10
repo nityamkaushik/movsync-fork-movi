@@ -60,8 +60,8 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-[GitHub Discussions](https://github.com/mrujjwalg/movi-player/discussions) or by using
-[GitHub's private reporting feature](https://github.com/mrujjwalg/movi-player/security).
+[GitHub Discussions](https://github.com/nityamkaushik/movsync-fork-movi/discussions) or by using
+[GitHub's private reporting feature](https://github.com/nityamkaushik/movsync-fork-movi/security).
 
 All complaints will be reviewed and investigated promptly and fairly.
 

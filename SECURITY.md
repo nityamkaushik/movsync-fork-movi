@@ -2,23 +2,23 @@
 
 ## Supported Versions
 
-We actively maintain and provide security updates for the following versions of Movi-Player:
+We actively maintain and provide security updates for the following versions of MovSync:
 
 | Version | Supported          |
 | ------- | ------------------ |
 | 0.1.x (beta)   | :white_check_mark: |
 | < 0.1.0 | :x:                |
 
-**Note:** As Movi-Player is currently in beta, we recommend always using the latest version for security updates and bug fixes.
+**Note:** As MovSync is currently in beta, we recommend always using the latest version for security updates and bug fixes.
 
 ## Reporting a Vulnerability
 
-We take the security of Movi-Player seriously. If you discover a security vulnerability, please report it responsibly using GitHub's private vulnerability reporting feature.
+We take the security of MovSync seriously. If you discover a security vulnerability, please report it responsibly using GitHub's private vulnerability reporting feature.
 
 ### How to Report
 
 1. **Use GitHub Security Advisories** (Recommended):
-   - Navigate to the [Security tab](https://github.com/mrujjwalg/movi-player/security) of the repository
+   - Navigate to the [Security tab](https://github.com/nityamkaushik/movsync-fork-movi/security) of the repository
    - Click "Report a vulnerability"
    - Fill out the vulnerability details form
    - Submit your report privately
@@ -61,13 +61,13 @@ Movi-Player uses WebAssembly (FFmpeg compiled with Emscripten) for video decodin
 - **Validated Execution**: WASM modules are validated before execution
 
 **Best Practices:**
-- Only load WASM from trusted sources (movi-player's CDN or your own server)
+- Only load WASM from trusted sources (MovSync's CDN or your own server)
 - Verify integrity of WASM files if self-hosting
-- Keep movi-player updated to get WASM security patches
+- Keep MovSync updated to get WASM security patches
 
 ### 2. Cross-Origin Isolation (COEP/COOP Headers)
 
-For maximum performance, Movi-Player uses SharedArrayBuffer, which requires:
+For maximum performance, MovSync uses SharedArrayBuffer, which requires:
 
 ```
 Cross-Origin-Embedder-Policy: require-corp
@@ -103,7 +103,7 @@ Content-Security-Policy: default-src 'self';
 
 ### 4. Untrusted Media Files
 
-Movi-Player can process user-uploaded video files. When handling untrusted content:
+MovSync can process user-uploaded video files. When handling untrusted content:
 
 **Risks:**
 - **Malformed Files**: Crafted files might trigger parser bugs
@@ -156,7 +156,7 @@ When loading videos from HTTP sources:
 
 ### 6. Dependency Security
 
-Movi-Player depends on:
+MovSync depends on:
 - **hls.js** - HLS streaming support
 - **FFmpeg (WASM)** - Media processing
 
@@ -166,7 +166,7 @@ Movi-Player depends on:
 - CVE databases
 
 **You should:**
-- Keep movi-player updated
+- Keep MovSync updated
 - Run `npm audit` regularly
 - Monitor for security advisories
 
@@ -207,15 +207,15 @@ After the embargo period, we will:
 Subscribe to security updates:
 
 - **Watch the repository** on GitHub (Security alerts only)
-- **GitHub Security Advisories**: [Security tab](https://github.com/mrujjwalg/movi-player/security/advisories)
-- **npm**: `npm audit` will show movi-player vulnerabilities
+- **GitHub Security Advisories**: [Security tab](https://github.com/nityamkaushik/movsync-fork-movi/security/advisories)
+- **npm**: `npm audit` will show MovSync vulnerabilities
 
 ## Security Best Practices for Users
 
 ### Production Deployments
 
 1. **Use Latest Version**: Always use the latest stable release
-2. **HTTPS Only**: Serve movi-player and videos over HTTPS
+2. **HTTPS Only**: Serve MovSync and videos over HTTPS
 3. **CSP Headers**: Implement Content Security Policy
 4. **Subresource Integrity**: Use SRI hashes for CDN resources
 5. **Input Validation**: Validate all user-provided video sources
@@ -225,7 +225,7 @@ Subscribe to security updates:
 ### Example Secure Configuration
 
 ```typescript
-import { MoviPlayer } from 'movi-player/player';
+import { MoviPlayer } from '@nityamkaushik/movsync/player';
 
 const player = new MoviPlayer({
   source: {
@@ -270,11 +270,11 @@ We thank the following security researchers for responsibly disclosing vulnerabi
 
 For security concerns that don't warrant a private vulnerability report, you can:
 
-- Open a [GitHub Discussion](https://github.com/mrujjwalg/movi-player/discussions)
-- Create a public [GitHub Issue](https://github.com/mrujjwalg/movi-player/issues) (for non-sensitive matters)
+- Open a [GitHub Discussion](https://github.com/nityamkaushik/movsync-fork-movi/discussions)
+- Create a public [GitHub Issue](https://github.com/nityamkaushik/movsync-fork-movi/issues) (for non-sensitive matters)
 
 **Do not** disclose security vulnerabilities in public issues or discussions. Always use GitHub Security Advisories for responsible disclosure.
 
 ---
 
-**Thank you for helping keep Movi-Player and its users safe!**
+**Thank you for helping keep MovSync and its users safe!**

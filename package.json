@@ -101,16 +101,16 @@
     "picture-in-picture",
     "lcevc"
   ],
-  "author": "Ujjawal Kashyap <mr.ujjwalg@gmail.com> (https://github.com/mrujjwalg)",
+  "author": "Nityam Kaushik <nityamkaushik@gmail.com> (https://github.com/nityamkaushik)",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrujjwalg/movi-player.git"
+    "url": "https://github.com/nityamkaushik/movsync-fork-movi.git"
   },
   "bugs": {
-    "url": "https://github.com/mrujjwalg/movi-player/issues"
+    "url": "https://github.com/nityamkaushik/movsync-fork-movi/issues"
   },
-  "homepage": "https://moviplayer.com",
+  "homepage": "https://movsync.vercel.app",
   "devDependencies": {
     "@playwright/test": "^1.40.0",
     "@rollup/plugin-terser": "^1.0.0",

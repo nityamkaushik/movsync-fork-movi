@@ -1,29 +1,29 @@
 <div align="center">
 
-<img src="docs/images/banner.png" alt="Movi Player" width="100%" />
+<img src="docs/images/banner.png" alt="MovSync Player" width="100%" />
 
 ### Play any video format directly in the browser.
 ##### No transcoding. No server processing. <br /> Just `<movi-player src="video.mkv" controls>`.
 
-[![npm version](https://img.shields.io/npm/v/movi-player.svg?style=flat-square&color=cb3837&logo=npm)](https://www.npmjs.com/package/movi-player)
-[![npm downloads](https://img.shields.io/npm/dm/movi-player.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/movi-player)
-[![bundle size](https://img.shields.io/badge/bundle-50--410KB-success?style=flat-square)](https://www.npmjs.com/package/movi-player)
+[![npm version](https://img.shields.io/npm/v/@nityamkaushik/movsync.svg?style=flat-square&color=cb3837&logo=npm)](https://www.npmjs.com/package/@nityamkaushik/movsync)
+[![npm downloads](https://img.shields.io/npm/dm/@nityamkaushik/movsync.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/@nityamkaushik/movsync)
+[![bundle size](https://img.shields.io/badge/bundle-50--410KB-success?style=flat-square)](https://www.npmjs.com/package/@nityamkaushik/movsync)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/MrUjjwalG/movi-player?style=flat-square&color=yellow&logo=github)](https://github.com/MrUjjwalG/movi-player/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/nityamkaushik/movsync-fork-movi?style=flat-square&color=yellow&logo=github)](https://github.com/nityamkaushik/movsync-fork-movi/stargazers)
 
-**[Web App](https://moviplayer.com)** &nbsp;·&nbsp; **[Documentation](https://mrujjwalg.github.io/movi-player/)** &nbsp;·&nbsp; **[Live Demo](https://movi-player-examples.vercel.app/element.html)** &nbsp;·&nbsp; **[Examples](https://github.com/MrUjjwalG/movi-player-examples)** &nbsp;·&nbsp; **[Changelog](CHANGELOG.md)**
+**[Web App](https://movsync.vercel.app)** &nbsp;·&nbsp; **[Documentation](https://nityamkaushik.github.io/movsync-fork-movi/)** &nbsp;·&nbsp; **[Changelog](CHANGELOG.md)**
 
-![Movi Player](docs/images/element.gif)
+![MovSync Player](docs/images/element.gif)
 
-<sub>Built with care by <a href="https://github.com/mrujjwalg"><b>mrujjwalg</b></a> · MKV · HEVC · AV1 · 4K HDR · DRM · Encrypted Streaming</sub>
+<sub>Maintained by <a href="https://github.com/nityamkaushik"><b>Nityam Kaushik</b></a> · Based on <a href="https://github.com/mrujjwalg/movi-player">movi-player</a> by <a href="https://github.com/mrujjwalg">mrujjwalg</a> · MKV · HEVC · AV1 · 4K HDR · DRM · Encrypted Streaming</sub>
 
 </div>
 
 ---
 
-## Why Movi Player?
+## Why MovSync?
 
-**The browser can't play MKV, HEVC, or HDR videos.** You either transcode everything server-side or tell users "format not supported." Movi Player fixes this.
+**The browser can't play MKV, HEVC, or HDR videos.** You either transcode everything server-side or tell users "format not supported." MovSync fixes this.
 
 - **Play anything** -- MKV, HEVC, AV1, 4K HDR, multi-audio, subtitles. Formats that `<video>` can't touch.
 - **Zero server cost** -- No FFmpeg on your server. No transcoding pipeline. Everything runs in the browser via WebAssembly.
@@ -40,7 +40,7 @@
 
 ### vs. Other Players
 
-| | Movi Player | video.js | hls.js | Plyr |
+| | MovSync | video.js | hls.js | Plyr |
 |---|---|---|---|---|
 | MKV / HEVC / AV1 | Yes | No | No | No |
 | HDR rendering | Yes | No | No | No |
@@ -59,7 +59,7 @@
 ## Install
 
 ```bash
-npm i movi-player
+npm i @nityamkaushik/movsync
 ```
 
 Also available as a **desktop app** (Windows / macOS / Linux) for playing local files and URLs with native always-on-top Picture-in-Picture and a playlist — see [`desktop/`](desktop/). Browser and editor integrations live in [`chrome-extension/`](chrome-extension/) and [`vscode-extension/`](vscode-extension/).
@@ -69,7 +69,7 @@ Also available as a **desktop app** (Windows / macOS / Linux) for playing local 
 ### HTML Element (simplest)
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/movi-player/dist/element.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@nityamkaushik/movsync/dist/element.js"></script>
 
 <movi-player src="video.mp4" controls autoplay muted></movi-player>
 ```
@@ -78,7 +78,7 @@ Or with npm:
 
 ```html
 <script type="module">
-  import "movi-player";
+  import "@nityamkaushik/movsync";
 </script>
 
 <movi-player src="video.mp4" controls autoplay muted></movi-player>
@@ -94,7 +94,7 @@ Or with npm:
 ### Programmatic
 
 ```typescript
-import { MoviPlayer } from "movi-player/player";
+import { MoviPlayer } from "@nityamkaushik/movsync/player";
 
 const player = new MoviPlayer({
   source: { type: "url", url: "video.mp4" },
@@ -164,18 +164,16 @@ Headers ride along on every media request -- manifest + segments, progressive HT
 ></movi-player>
 ```
 
-Requires a DRM license server (PallyCon, EZDRM, BuyDRM, etc.). Key systems are tried Widevine → PlayReady → FairPlay. In DRM mode, the native `<video>` element is used (canvas features like rotation are disabled).
+Requires a DRM license server (PallyCon, EZDRM, BuyDRM, etc.). Key systems are tried Widevine -> PlayReady -> FairPlay. In DRM mode, the native `<video>` element is used (canvas features like rotation are disabled).
 
 ### Demuxer Only (50KB)
 
 ![Demuxer](docs/images/demuxer.webp)
 
-[Live Demo](https://movi-player-examples.vercel.app/demuxer.html) | [Source](https://github.com/MrUjjwalG/movi-player-examples/blob/main/demuxer.html)
-
 Extract metadata, tracks, HDR info, and thumbnails without playing the video.
 
 ```typescript
-import { Demuxer, HttpSource } from "movi-player/demuxer";
+import { Demuxer, HttpSource } from "@nityamkaushik/movsync/demuxer";
 
 const demuxer = new Demuxer(new HttpSource("video.mp4"));
 const info = await demuxer.open();
@@ -202,9 +200,9 @@ Use cases: video validators, asset management, HDR detection pipelines, search i
 
 | Module | Size | Gzip | Brotli | What you get |
 |---|---|---|---|---|
-| `movi-player` / `movi-player/element` | ~410KB | 2.57 MB | 1.95 MB | Full player with UI, controls, gestures |
-| `movi-player/player` | ~180KB | 2.52 MB | 1.91 MB | Programmatic playback, no UI |
-| `movi-player/demuxer` | ~50KB | 2.31 MB | 1.74 MB | Metadata extraction, decoding only |
+| `@nityamkaushik/movsync` / `@nityamkaushik/movsync/element` | ~410KB | 2.57 MB | 1.95 MB | Full player with UI, controls, gestures |
+| `@nityamkaushik/movsync/player` | ~180KB | 2.52 MB | 1.91 MB | Programmatic playback, no UI |
+| `@nityamkaushik/movsync/demuxer` | ~50KB | 2.31 MB | 1.74 MB | Metadata extraction, decoding only |
 
 > **Note:** Module sizes (first column) exclude the embedded WASM binary. Gzip/Brotli columns show the total transfer size including WASM. Enable Brotli compression on your server for optimal delivery.
 
@@ -395,8 +393,8 @@ Videos served over HTTP need:
 ## Development
 
 ```bash
-git clone --recurse-submodules https://github.com/mrujjwalg/movi-player.git
-cd movi-player
+git clone --recurse-submodules https://github.com/nityamkaushik/movsync-fork-movi.git
+cd movsync-fork-movi
 npm install
 npm run build:wasm    # Requires Docker
 npm run build:ts
@@ -407,17 +405,21 @@ npm run dev
 
 [AGENTS.md](./AGENTS.md) is a tour of the architecture, public API, and the
 non-obvious tradeoffs (4K rate cap, ambient-mode cost, `.ts` long-GOP handling,
-audio threshold ↔ AudioContext `latencyHint` coupling, etc.). It's written for
+audio threshold - AudioContext `latencyHint` coupling, etc.). It's written for
 AI coding assistants — Claude, Cursor, Codex, Copilot — but humans onboarding
 to the codebase will find it useful too.
 
 The file ships inside the npm package as well, so when you install
-`movi-player` you can point your assistant at
-`node_modules/movi-player/AGENTS.md` (most tools either pick it up
+`@nityamkaushik/movsync` you can point your assistant at
+`node_modules/@nityamkaushik/movsync/AGENTS.md` (most tools either pick it up
 automatically from the workspace or accept it via an `@-mention`). Filename
 follows the [AGENTS.md convention](https://agents.md/) so newer tools that
 auto-discover it work out of the box.
 
+## Attribution
+
+This project is a fork of [movi-player](https://github.com/mrujjwalg/movi-player) by [Ujjawal Kashyap](https://github.com/mrujjwalg), licensed under Apache 2.0.
+
 ## License
 
-Apache 2.0 -- [Ujjawal Kashyap](https://github.com/mrujjwalg)
+Apache 2.0 -- [Nityam Kaushik](https://github.com/nityamkaushik)
