@@ -1012,11 +1012,13 @@ export class MoviVideoDecoder {
     }
 
     if (this.errorCount >= MoviVideoDecoder.MAX_ERRORS) {
-      Logger.error(
+      Logger.warn(
         TAG,
-        `Max errors (${MoviVideoDecoder.MAX_ERRORS}) exceeded within short duration. Emitting fatal error.`,
+        `Max errors (${MoviVideoDecoder.MAX_ERRORS}) exceeded within short duration. Skipping bad packets and waiting for next keyframe.`,
       );
-      if (this.onError) this.onError(error);
+      // Don't fire onError — just skip bad packets and wait for next keyframe.
+      // The decoder will resume on the next IDR. The video holds the last good frame.
+      this.setWaitingForKeyframe(true);
       return;
     }
 

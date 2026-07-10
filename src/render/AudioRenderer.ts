@@ -64,7 +64,12 @@ export class AudioRenderer {
   // Stable audio: AudioContext state monitoring & auto-recovery
   private contextStateHandler: (() => void) | null = null;
   private recoveryAttempts: number = 0;
+  private recoveryTimer: ReturnType<typeof setTimeout> | null = null;
   private static readonly MAX_RECOVERY_ATTEMPTS = 3;
+  private static readonly PERIODIC_RETRY_INTERVAL = 10_000;
+
+  onAudioLost: (() => void) | null = null;
+  onAudioRestored: (() => void) | null = null;
 
   // Stable audio: starvation detection
   private starvationStartTime: number = 0;
@@ -1385,12 +1390,18 @@ export class AudioRenderer {
 
   /**
    * Attempt to recover AudioContext from interrupted/suspended state
+   * Uses exponential backoff for initial attempts, then periodic retry
    */
   private attemptContextRecovery(): void {
     if (!this.audioContext || !this.isPlaying) return;
+
     if (this.recoveryAttempts >= AudioRenderer.MAX_RECOVERY_ATTEMPTS) {
-      Logger.error(TAG, `AudioContext recovery failed after ${AudioRenderer.MAX_RECOVERY_ATTEMPTS} attempts`);
-      this.recoveryAttempts = 0;
+      Logger.error(TAG, `AudioContext recovery failed after ${AudioRenderer.MAX_RECOVERY_ATTEMPTS} attempts, switching to periodic retry`);
+      if (this.onAudioLost) this.onAudioLost();
+      // Set periodic retry every 10s so recovery can happen if AudioContext becomes resumable
+      if (!this.recoveryTimer) {
+        this.recoveryTimer = setInterval(() => this.attemptContextRecovery(), AudioRenderer.PERIODIC_RETRY_INTERVAL);
+      }
       return;
     }
 
@@ -1401,6 +1412,11 @@ export class AudioRenderer {
       if (this.audioContext?.state === "running") {
         Logger.info(TAG, "AudioContext recovered successfully");
         this.recoveryAttempts = 0;
+        if (this.recoveryTimer) {
+          clearInterval(this.recoveryTimer);
+          this.recoveryTimer = null;
+        }
+        if (this.onAudioRestored) this.onAudioRestored();
       }
     }).catch((err) => {
       Logger.warn(TAG, "AudioContext recovery failed", err);
@@ -1468,6 +1484,12 @@ export class AudioRenderer {
     if (this.audioContext && this.contextStateHandler) {
       this.audioContext.removeEventListener("statechange", this.contextStateHandler);
       this.contextStateHandler = null;
+    }
+
+    // Clean up periodic recovery timer
+    if (this.recoveryTimer) {
+      clearInterval(this.recoveryTimer);
+      this.recoveryTimer = null;
     }
 
     if (this.audioContext) {
