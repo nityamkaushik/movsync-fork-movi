@@ -431,7 +431,11 @@ export class MoviAudioDecoder {
     if (!this.decoder) return;
 
     try {
-      await this.decoder.flush();
+      if (this.decoder.state === 'configured') {
+        await this.decoder.flush();
+      } else {
+        Logger.debug(TAG, `Skipping flush(), decoder state is ${this.decoder.state}`);
+      }
     } catch (error) {
       Logger.error(TAG, "Flush error", error);
     }

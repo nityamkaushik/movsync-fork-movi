@@ -1273,13 +1273,17 @@ export class MoviVideoDecoder {
     }
 
     try {
-      // Timeout flush — WebCodecs flush() can hang on slow devices
-      await Promise.race([
-        this.decoder.flush(),
-        new Promise<void>((_, reject) =>
-          setTimeout(() => reject(new Error("flush timeout")), 1000)
-        ),
-      ]);
+      if (this.decoder.state === 'configured') {
+        // Timeout flush - WebCodecs flush() can hang on slow devices
+        await Promise.race([
+          this.decoder.flush(),
+          new Promise<void>((_, reject) =>
+            setTimeout(() => reject(new Error("flush timeout")), 1000)
+          ),
+        ]);
+      } else {
+        Logger.debug(TAG, `Skipping flush(), decoder state is ${this.decoder.state}`);
+      }
     } catch (error) {
       Logger.warn(TAG, "Flush timeout or error, resetting decoder", error);
       try {
