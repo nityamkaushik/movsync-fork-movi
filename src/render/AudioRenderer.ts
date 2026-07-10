@@ -17,6 +17,8 @@ export class AudioRenderer {
   private audioContext: AudioContext | null = null;
   private gainNode: GainNode | null = null;
   private compressorNode: DynamicsCompressorNode | null = null;
+  private bassFilter: BiquadFilterNode | null = null;
+  private trebleFilter: BiquadFilterNode | null = null;
   private scheduledTime: number = 0;
   private isPlaying: boolean = false;
   private volume: number = 1.0;
@@ -166,6 +168,17 @@ export class AudioRenderer {
       });
       this.gainNode = this.audioContext.createGain();
 
+      // Audio Enhancement: Bass and Treble Boost EQ (Cinematic sound)
+      this.bassFilter = this.audioContext.createBiquadFilter();
+      this.bassFilter.type = "lowshelf";
+      this.bassFilter.frequency.value = 150;
+      this.bassFilter.gain.value = 6; // +6dB for punchy bass
+
+      this.trebleFilter = this.audioContext.createBiquadFilter();
+      this.trebleFilter.type = "highshelf";
+      this.trebleFilter.frequency.value = 4000;
+      this.trebleFilter.gain.value = 3; // +3dB for clarity
+
       // Create compressor for stable audio (loudness normalization).
       // Tuned as a peak-limiter, not a heavy compressor: a wide soft knee
       // + low ratio (the WebAudio default-ish) flattens the whole signal
@@ -180,13 +193,16 @@ export class AudioRenderer {
       this.compressorNode.release.value = 0.15;   // 150ms — quick recovery, no pumping
 
       // Wire audio chain based on stable audio state
+      this.gainNode.connect(this.bassFilter);
+      this.bassFilter.connect(this.trebleFilter);
+
       if (this._stableAudio) {
-        // source -> compressor -> gain -> destination
-        this.gainNode.connect(this.compressorNode);
+        // source -> gain -> EQ -> compressor -> destination
+        this.trebleFilter.connect(this.compressorNode);
         this.compressorNode.connect(this.audioContext.destination);
       } else {
-        // source -> gain -> destination
-        this.gainNode.connect(this.audioContext.destination);
+        // source -> gain -> EQ -> destination
+        this.trebleFilter.connect(this.audioContext.destination);
       }
 
       // Apply muted state if set before initialization
