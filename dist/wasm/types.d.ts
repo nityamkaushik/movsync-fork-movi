@@ -1,0 +1,165 @@
+/**
+ * WASM Types - Type definitions for WASM module with Asyncify
+ */
+export interface EmscriptenFS {
+    mkdir: (path: string) => void;
+    rmdir: (path: string) => void;
+    mount: (type: unknown, opts: {
+        files?: File[];
+    }, mountpoint: string) => void;
+    unmount: (mountpoint: string) => void;
+    writeFile: (path: string, data: Uint8Array) => void;
+    unlink: (path: string) => void;
+    filesystems: {
+        WORKERFS: unknown;
+    };
+}
+export interface MoviWasmModule {
+    HEAPU8: Uint8Array;
+    HEAP32: Int32Array;
+    HEAPU32: Uint32Array;
+    HEAPF32: Float32Array;
+    HEAPF64: Float64Array;
+    _malloc: (size: number) => number;
+    _free: (ptr: number) => void;
+    stringToNewUTF8: (str: string) => number;
+    UTF8ToString: (ptr: number) => string;
+    FS: EmscriptenFS;
+    _movi_create: () => number;
+    _movi_destroy: (ctx: number) => void;
+    _movi_set_file_size: (ctx: number, sizeLow: number, sizeHigh: number) => void;
+    _movi_open: (ctx: number) => Promise<number>;
+    _movi_get_duration: (ctx: number) => number;
+    _movi_get_start_time: (ctx: number) => number;
+    _movi_get_stream_count: (ctx: number) => number;
+    _movi_get_chapter_count: (ctx: number) => number;
+    _movi_get_chapter_start: (ctx: number, index: number) => number;
+    _movi_get_chapter_end: (ctx: number, index: number) => number;
+    _movi_get_chapter_title: (ctx: number, index: number, buffer: number, bufferSize: number) => number;
+    _movi_get_stream_info: (ctx: number, streamIndex: number, infoPtr: number) => number;
+    _movi_get_extradata: (ctx: number, streamIndex: number, buffer: number, bufferSize: number) => number;
+    _movi_get_attached_pic_data: (ctx: number, streamIndex: number, buffer: number, bufferSize: number) => number;
+    _movi_seek_to: (ctx: number, timestamp: number, streamIndex: number, flags: number) => Promise<number>;
+    _movi_read_frame: (ctx: number, infoPtr: number, buffer: number, bufferSize: number) => Promise<number>;
+    _movi_set_log_level: (level: number) => void;
+    _movi_get_format_name: (ctx: number, buffer: number, size: number) => number;
+    _movi_get_metadata_title: (ctx: number, buffer: number, size: number) => number;
+    _movi_enable_decoder: (ctx: number, stream_index: number, extradata: number, extradata_size: number) => number;
+    _movi_send_packet: (ctx: number, stream_index: number, data: number, size: number, pts: number, dts: number, keyframe: number) => number;
+    _movi_receive_frame: (ctx: number, stream_index: number) => number;
+    _movi_get_frame_width: (ctx: number) => number;
+    _movi_get_frame_height: (ctx: number) => number;
+    _movi_get_frame_format(ctx: number): number;
+    _movi_get_frame_data(ctx: number, plane: number): number;
+    _movi_get_frame_linesize(ctx: number, plane: number): number;
+    _movi_get_frame_samples(ctx: number): number;
+    _movi_get_frame_channels(ctx: number): number;
+    _movi_get_frame_sample_rate(ctx: number): number;
+    _movi_enable_audio_downmix(ctx: number, enable: number): void;
+    _movi_get_frame_pts(ctx: number, streamIndex: number): number;
+    _movi_flush_decoder(ctx: number, streamIndex: number): void;
+    _movi_get_frame_rgba(ctx: number, targetWidth: number, targetHeight: number): number;
+    _movi_get_frame_rgba_size(ctx: number): number;
+    _movi_get_frame_rgba_linesize(ctx: number): number;
+    _movi_set_skip_frame(ctx: number, streamIndex: number, skip: number): void;
+    _movi_thumbnail_create: (fileSizeLow: number, fileSizeHigh: number) => number;
+    _movi_thumbnail_open: (ctx: number) => Promise<number>;
+    _movi_thumbnail_read_keyframe: (ctx: number, timestamp: number) => void;
+    _movi_thumbnail_get_packet_data: (ctx: number) => number;
+    _movi_thumbnail_get_packet_pts: (ctx: number) => number;
+    _movi_thumbnail_get_stream_info: (ctx: number, infoPtr: number) => number;
+    _movi_thumbnail_get_extradata: (ctx: number, buffer: number, bufferSize: number) => number;
+    _movi_thumbnail_decode_frame_yuv: (ctx: number) => number;
+    _movi_thumbnail_get_plane_data: (ctx: number, plane: number) => number;
+    _movi_thumbnail_get_plane_linesize: (ctx: number, plane: number) => number;
+    _movi_thumbnail_get_frame_width: (ctx: number) => number;
+    _movi_thumbnail_get_frame_height: (ctx: number) => number;
+    _movi_thumbnail_destroy: (ctx: number) => void;
+    _movi_stretch_new: (channels: number, sampleRate: number) => number;
+    _movi_stretch_delete: (handle: number) => void;
+    _movi_stretch_reset: (handle: number) => void;
+    _movi_stretch_set_transpose_semitones: (handle: number, semitones: number) => void;
+    _movi_stretch_input_latency: (handle: number) => number;
+    _movi_stretch_output_latency: (handle: number) => number;
+    _movi_stretch_process: (handle: number, inPtr: number, inFrames: number, outPtr: number, outFrames: number) => void;
+    ccall: (name: string, returnType: string, argTypes: string[], args: unknown[], opts?: {
+        async?: boolean;
+    }) => unknown | Promise<unknown>;
+    cwrap: (name: string, returnType: string, argTypes: string[]) => (...args: unknown[]) => unknown;
+    addFunction: (func: Function, sig: string) => number;
+}
+export interface StreamInfo {
+    index: number;
+    type: number;
+    codecId: number;
+    codecName: string;
+    width: number;
+    height: number;
+    frameRate: number;
+    channels: number;
+    sampleRate: number;
+    duration: number;
+    bitRate: number;
+    extradataSize: number;
+    profile: number;
+    level: number;
+    language: string;
+    label: string;
+    rotation: number;
+    colorPrimaries: string;
+    colorTransfer: string;
+    colorMatrix: string;
+    pixelFormat: string;
+    colorRange: string;
+    projection: number;
+    isAttachedPic: boolean;
+}
+export interface PacketInfo {
+    streamIndex: number;
+    keyframe: boolean;
+    pts: number;
+    dts: number;
+    duration: number;
+    size: number;
+    isIdr: boolean;
+    isRasl: boolean;
+}
+export declare const STREAM_INFO_SIZE = 344;
+export declare const STREAM_INFO_OFFSETS: {
+    index: number;
+    type: number;
+    codecId: number;
+    codecName: number;
+    width: number;
+    height: number;
+    frameRate: number;
+    channels: number;
+    sampleRate: number;
+    duration: number;
+    bitRate: number;
+    extradataSize: number;
+    profile: number;
+    level: number;
+    language: number;
+    label: number;
+    rotation: number;
+    colorPrimaries: number;
+    colorTransfer: number;
+    colorMatrix: number;
+    pixelFormat: number;
+    colorRange: number;
+    projection: number;
+    isAttachedPic: number;
+};
+export declare const PACKET_INFO_SIZE = 48;
+export declare const PACKET_INFO_OFFSETS: {
+    streamIndex: number;
+    keyframe: number;
+    timestamp: number;
+    dts: number;
+    duration: number;
+    size: number;
+    isIdr: number;
+    isRasl: number;
+};
+//# sourceMappingURL=types.d.ts.map
